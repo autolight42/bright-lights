@@ -84,10 +84,11 @@ async def tracker_loop():
 # --- ВЕБ-СЕРВЕР ДЛЯ RENDER ---
 app = Flask(__name__)
 
-@app.route('/')
+@app.route('/', methods=['GET', 'HEAD'])
 def home():
-    # UptimeRobot будет открывать эту страницу, чтобы сервер не засыпал
-    return "Tracker is running!"
+    # Этот обработчик теперь принимает и GET, и HEAD запросы
+    # UptimeRobot (бесплатный) шлет HEAD, и теперь сервер ответит ему корректно
+    return "Tracker is running!", 200
 
 def run_flask():
     # Render сам назначит порт, либо используем 8080 по умолчанию
